@@ -1,0 +1,70 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+html,body {
+  margin:0;
+  padding:0;
+  height:100%; /* needed for container min-height */
+}
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  background-color: #F4F4F4;
+}
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-flow: row wrap;
+  justify-content: center;
+}
+
+#root {
+  height: 100%; /* needed so can flexbox center the login button */
+}
+
+
+// for Select component styles as recommended in https://github.com/JedWatson/react-select/issues/602
+@import url('../node_modules/react-select/dist/react-select.css');
+@import url('../node_modules/sweetalert/dist/sweetalert.css');
+
+// for exptox plot
+.axis path,
+.axis line{
+  fill: none;
+  stroke: black;
+}
+
+.tick text{
+  font-size: 18px;
+}
+
+.tick line{
+  opacity: 0.6;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+// actual svg
+.exptoxplot {
+  display: block;
+  margin: auto;
+}
