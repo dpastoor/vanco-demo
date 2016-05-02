@@ -4,13 +4,14 @@
 
 import React from 'react';
 const SweetAlert = require('react-swal');
-const DosingAlert = () => {
-    return <div></div>
+import {observer} from 'mobx-react'
+const DosingAlert = observer(function(props) {
+    return <div>{JSON.stringify(props, null, 4)}</div>
   return (
     <div>
       <SweetAlert
         isOpen={true}
-        title= {`Fara-M Dose: ${inputData.dose_fara_m} mg`}
+        title= {`Vanco Dose: ${inputData.dose_fara_m} mg`}
         showCancelButton={false}
         confirmButtonText="Get Another Recommendation"
         text={`
@@ -29,7 +30,7 @@ const DosingAlert = () => {
       />
     </div>
   )
-}
+})
 
 
 export default DosingAlert

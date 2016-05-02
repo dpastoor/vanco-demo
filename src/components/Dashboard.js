@@ -6,7 +6,14 @@ import React from 'react';
 import InputData from './input-data-form';
 import { Paper } from 'material-ui';
 import SimResults from './sim-results';
+import {observable} from 'mobx';
+import {observer} from 'mobx-react';
 
+import DosingRecommendation from '../stores/dosing_recommendations'
+
+const dosingRecommendation = new DosingRecommendation({})
+
+@observer
 class Dashboard extends React.Component {
   render() {
     return (
@@ -33,11 +40,11 @@ class Dashboard extends React.Component {
           }}
           zDepth={5}
           >
-            <InputData />
+            <InputData dr={dosingRecommendation} />
           </Paper>
         </div>
         <div>
-          <SimResults />
+          <SimResults dr={dosingRecommendation} />
         </div>
       </div>
     )

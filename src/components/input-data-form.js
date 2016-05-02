@@ -62,7 +62,7 @@
    }
 
    submitForm(data) {
-     alert(JSON.stringify(data, null, 4));
+		 this.props.dr.dosingRecommendation = data
    }
 
    notifyFormError(data) {
