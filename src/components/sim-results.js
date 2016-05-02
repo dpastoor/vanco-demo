@@ -5,28 +5,31 @@
 import React from 'react';
 const SweetAlert = require('react-swal');
 import {observer} from 'mobx-react'
-const DosingAlert = observer(function(props) {
-    return <div>{JSON.stringify(props, null, 4)}</div>
+const DosingAlert = observer(function({dr}) {
+  if (dr.dosingRecommendation.length <= 0) {
+    return <div>no rec</div>
+  }
+  let dosingRec = dr.dosingRecommendation[0]
+  console.log(JSON.stringify(dosingRec, null, 4))
   return (
     <div>
       <SweetAlert
         isOpen={true}
-        title= {`Vanco Dose: ${inputData.dose_fara_m} mg`}
+        title= {`Vancomycin Dose: ${dosingRec.amt} mg Q${dosingRec.ii}h`}
         showCancelButton={false}
-        confirmButtonText="Get Another Recommendation"
+        confirmButtonText="Show More Details"
         text={`
           <div>
               <p>
-                     Dose based on 40 mg/m2: ${inputData.dose_40_mg_m2} mg
+                     Estimated Patient Clearance: ${dosingRec.CLi} (L/hr)
               </p>
               <p>
-                     Difference between mg/kg and mg/m2 dosing: ${inputData.prec_dose_diff}%
+                     Estimated Patient Volume of Distribution: ${dosingRec.Vi} (L)
               </p>
           </div>
         `}
         html={true}
          type="success"
-
       />
     </div>
   )

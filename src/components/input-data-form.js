@@ -9,6 +9,8 @@
  import FormsyTime from '../fmi/FormsyTime.jsx';
  import ThemeManager from 'material-ui/lib/styles/theme-manager';
  import MyRawTheme from '../css/materialThemeCustomizations';
+
+import fixtures from '../fixtures/mockData';
  export default class InputData extends React.Component {
    constructor(props) {
      super(props);
@@ -62,7 +64,7 @@
    }
 
    submitForm(data) {
-		 this.props.dr.dosingRecommendation = data
+		 this.props.dr.dosingRecommendation = fixtures.data1.dose_rec
    }
 
    notifyFormError(data) {
