@@ -18,6 +18,9 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   module: {
+    noParse: [
+      /plotly\.js/
+    ],
     loaders: [{
       test: /\.jsx?/,
       loaders: ['babel'],

@@ -8,14 +8,51 @@ import { Paper } from 'material-ui';
 import SimResults from './sim-results';
 import {observable} from 'mobx';
 import {observer} from 'mobx-react';
-
+import {RaisedButton} from 'material-ui';
+import Plotly from 'react-plotlyjs';
 import DosingRecommendation from '../stores/dosing_recommendations'
-
+import fixtures from '../fixtures/mockData.js'
 const dosingRecommendation = new DosingRecommendation({})
 
 @observer
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {setRec: true}
+    this.showDetails = this.showDetails.bind(this)
+  }
+  showDetails() {
+    console.log('showing details')
+      this.setState({
+        setRec: false
+      })
+  }
   render() {
+    let View
+    if (this.state.setRec) {
+      View = <div>
+        <Paper
+        style={{
+        padding: 20
+        }}
+        zDepth={5}
+        >
+          <InputData dr={dosingRecommendation}  />
+        </Paper>
+      <div>
+        <SimResults dr={dosingRecommendation} showDetails={this.showDetails} />
+      </div>
+      </div>
+  } else {
+    View = <div >
+      <RaisedButton
+        label="New Recommendation"
+        onClick={() => this.setState({setRec: true})}
+        style={{margin:10}}
+        />
+      <Plotly data={fixtures.data1.plot.data} layout={fixtures.data1.plot.layout} />
+    </div>
+  }
     return (
       <div
         style={{
@@ -34,17 +71,8 @@ class Dashboard extends React.Component {
           flexGrow: 1,
           width: 'auto'
         }}>
-          <Paper
-          style={{
-          padding: 20
-          }}
-          zDepth={5}
-          >
-            <InputData dr={dosingRecommendation} />
-          </Paper>
-        </div>
-        <div>
-          <SimResults dr={dosingRecommendation} />
+
+          {View}
         </div>
       </div>
     )
