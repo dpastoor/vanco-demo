@@ -65,6 +65,7 @@ import fixtures from '../fixtures/mockData';
 
    submitForm(data) {
 		 this.props.dr.dosingRecommendation = fixtures.data1.dose_rec
+		 this.props.dr.isOpen = true
    }
 
    notifyFormError(data) {
