@@ -3,6 +3,7 @@
  */
  import React from 'react';
  import Formsy from 'formsy-react';
+ import {observer} from 'mobx-react'
  import {MenuItem, RaisedButton, Paper } from 'material-ui';
  import FormsyText from '../fmi/FormsyText.jsx';
  import FormsyDate from '../fmi/FormsyDate.jsx';
@@ -12,6 +13,7 @@
 import qs from 'qs';
 import axios from 'axios';
 import fixtures from '../fixtures/mockData';
+@observer
  export default class InputData extends React.Component {
    constructor(props) {
      super(props);
@@ -68,9 +70,10 @@ import fixtures from '../fixtures/mockData';
 		 console.log("----qs----")
 		 let demogQs = qs.stringify({wt: data.wt, pma: data.pma, scr: data.scr});
 		 axios.get("http://localhost:8080/api?" + demogQs ).then(res => {
-			 console.log("----res----")
-			 this.props.dr.dosingRecommendation = JSON.parse(res.data).dose_rec
-			 this.props.dr.isOpen = true
+			 let resData = JSON.parse(res.data)
+			 this.props.dr.dosingRecommendation = resData.dose_rec;
+			 this.props.dr.plotData = resData.plot;
+			 this.props.dr.isOpen = true;
 		 })
    }
 

@@ -6,7 +6,7 @@ import React from 'react';
 import InputData from './input-data-form';
 import { Paper } from 'material-ui';
 import SimResults from './sim-results';
-import {observable} from 'mobx';
+import mobx, {observable, autorun} from 'mobx';
 import {observer} from 'mobx-react';
 import {RaisedButton} from 'material-ui';
 import Plotly from 'react-plotlyjs';
@@ -44,13 +44,13 @@ class Dashboard extends React.Component {
       </div>
       </div>
   } else {
-    View = <div >
+    View = <div style={{width: 800}}>
       <RaisedButton
         label="New Recommendation"
         onClick={() => this.setState({setRec: true})}
         style={{margin:10}}
         />
-      <Plotly data={fixtures.data1.plot.data} layout={fixtures.data1.plot.layout} />
+      <Plotly data={mobx.toJSON(dosingRecommendation.plotData.data)} layout={mobx.toJSON(dosingRecommendation.plotData.layout)} />
     </div>
   }
     return (

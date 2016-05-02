@@ -10,7 +10,6 @@ const DosingAlert = observer(function({dr, showDetails}) {
     return <div>no rec</div>
   }
   let dosingRec = dr.dosingRecommendation[0]
-  console.log(JSON.stringify(dosingRec, null, 4))
   return (
     <div>
       <SweetAlert
