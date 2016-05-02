@@ -9,7 +9,8 @@
  import FormsyTime from '../fmi/FormsyTime.jsx';
  import ThemeManager from 'material-ui/lib/styles/theme-manager';
  import MyRawTheme from '../css/materialThemeCustomizations';
-
+import qs from 'qs';
+import axios from 'axios';
 import fixtures from '../fixtures/mockData';
  export default class InputData extends React.Component {
    constructor(props) {
@@ -64,8 +65,13 @@ import fixtures from '../fixtures/mockData';
    }
 
    submitForm(data) {
-		 this.props.dr.dosingRecommendation = fixtures.data1.dose_rec
-		 this.props.dr.isOpen = true
+		 console.log("----qs----")
+		 let demogQs = qs.stringify({wt: data.wt, pma: data.pma, scr: data.scr});
+		 axios.get("http://localhost:8080/api?" + demogQs ).then(res => {
+			 console.log("----res----")
+			 this.props.dr.dosingRecommendation = JSON.parse(res.data).dose_rec
+			 this.props.dr.isOpen = true
+		 })
    }
 
    notifyFormError(data) {
