@@ -4,15 +4,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
 import {FormsyDate, FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
 
-import DatePicker from 'material-ui/DatePicker';
-import TimePicker from 'material-ui/TimePicker';
 
 
-
-const BabyMaker = React.createClass({
+export default class BabyMaker extends React.Component {
 
   /**
    * As an alternative to `MuiThemeProvider` you can add a theme directly into context.
@@ -27,52 +23,56 @@ const BabyMaker = React.createClass({
    *   }
    * },
    */
-
-  getInitialState() {
-    return {
-      canSubmit: false,
+constructor(props) {
+    super(props)
+    this.state = {
+      canSubmit: false
     };
-  },
+    this.errorMessages = {
+      wordsError: "Please only use letters",
+        numericError: "Please provide a number",
+        urlError: "Please provide a valid URL",
+    }
 
-  errorMessages: {
-    wordsError: "Please only use letters",
-    numericError: "Please provide a number",
-    urlError: "Please provide a valid URL",
-  },
+    this.styles = {
+      paperStyle: {
+        width: 300,
+          margin: 'auto',
+          padding: 20,
+      },
+      switchStyle: {
+        marginBottom: 16,
+      },
+      submitStyle: {
+        marginTop: 32,
+      }
+    }
+    this.enableButton = this.enableButton.bind(this)
+    this.disableButton = this.disableButton.bind(this)
+  }
 
-  styles: {
-    paperStyle: {
-      width: 300,
-      margin: 'auto',
-      padding: 20,
-    },
-    switchStyle: {
-      marginBottom: 16,
-    },
-    submitStyle: {
-      marginTop: 32,
-    },
-  },
+
 
   enableButton() {
     this.setState({
-      canSubmit: true,
+      canSubmit: true
     });
-  },
+  }
 
   disableButton() {
     this.setState({
-      canSubmit: false,
+      canSubmit: false
     });
-  },
+  }
 
   submitForm(data) {
     alert(JSON.stringify(data, null, 4));
-  },
+
+  }
 
   notifyFormError(data) {
     console.error('Form error:', data);
-  },
+  }
 
   render() {
     let {paperStyle, switchStyle, submitStyle } = this.styles;
@@ -132,7 +132,6 @@ const BabyMaker = React.createClass({
         </Paper>
       </MuiThemeProvider>
     );
-  },
-});
+  };
+};
 
-export default BabyMaker;
