@@ -6,6 +6,7 @@ export class Baby {
   @observable serumCreatinineRecords;
   @observable concentrationRecords;
   @observable dosingRecords;
+  @observable dosingRecomendations;
   constructor(name, timeOfBirth, weight, serumCreatinine) {
     this.name = name;
     this.timeOfBirth = timeOfBirth;
@@ -13,6 +14,7 @@ export class Baby {
     this.serumCreatinineRecords = [];
     this.concentrationRecords = [];
     this.dosingRecords = [];
+    this.dosingRecommendations = [];
     this.addWeight(timeOfBirth, weight);
     this.addSerumCreatinine( timeOfBirth, serumCreatinine);
   }
@@ -27,6 +29,9 @@ export class Baby {
   }
   addDosingRecord(time, dose) {
     this.dosingRecords.push(new DosingRecord(time, dose))
+  }
+  addDosingRecommendation(time, dose) {
+    this.dosingRecommendations.push(new DosingRecommendation(time, dose))
   }
 }
 
@@ -50,6 +55,13 @@ export class ConcentrationRecord {
   }
 }
 export class DosingRecord {
+  constructor(time, dosing) {
+    this.time = time;
+    this.dosing = dosing;
+  }
+}
+
+export class DosingRecommendation {
   constructor(time, dosing) {
     this.time = time;
     this.dosing = dosing;
