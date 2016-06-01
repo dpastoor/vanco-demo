@@ -23,7 +23,7 @@ export class Baby {
     this.weightRecords.push(new WeightRecord(time, weight))
   }
   addSerumCreatinine(time, serumCreatinine) {
-    this.serumCreatinineRecords.push(new SerumCreatinineRecord(time, weight))
+    this.serumCreatinineRecords.push(new SerumCreatinineRecord(time, serumCreatinine))
   }
   addConcentrationRecord(time, concentration) {
     this.concentrationRecords.push(new ConcentrationRecord(time, concentration))
