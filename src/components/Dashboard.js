@@ -7,7 +7,7 @@ import mobx, {observable} from 'mobx';
 import {observer} from 'mobx-react'
 import {RaisedButton} from 'material-ui';
 import {Baby} from '../stores/baby.js'
-
+import BabyMaker from './BabyMaker'
 const baby = new Baby("Dan", Date.UTC(2016, 1, 28, 10, 16), 2.5, 0.9, "Michel");
 @observer
 class Dashboard extends React.Component {
@@ -38,8 +38,9 @@ class Dashboard extends React.Component {
         padding: 20
         }}
             >
-              {JSON.stringify(baby.attendingDoctor)}
+              {JSON.stringify(baby)}
             </div>
+<BabyMaker></BabyMaker>
             <button
               onClick={() => {
               console.log("adding concentration record")
