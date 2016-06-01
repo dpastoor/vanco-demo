@@ -117,6 +117,14 @@ import fixtures from '../fixtures/mockData';
 							 floatingLabelText="Serum Creatinine (mg/dL)"
 							 required
 						 />
+						 <FormsyText
+							 name="some other param"
+							 validations="isNumeric"
+							 validationError={numericError}
+							 hintText="some param"
+							 floatingLabelText="yo"
+							 required
+						 />
              <RaisedButton
                style={submitStyle}
                type="submit"
