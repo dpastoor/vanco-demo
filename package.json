@@ -63,6 +63,9 @@
     "files": [
         "test/*.js"
     ],
+    "source": [
+      "src/stores/*.js"
+    ],
     "require": [
 	"babel-register"
     ],
