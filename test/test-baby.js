@@ -5,5 +5,6 @@
 import test from 'ava';
 
 test(t => {
-  t.deepEqual([1, 2], [1, 2])
+  const a = 1;
+  t.true(a === 0)
 });
