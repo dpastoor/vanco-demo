@@ -1,13 +1,13 @@
 import { observable, computed, transaction } from 'mobx'
 
-
 export class Baby {
   @observable weightRecords;
   @observable serumCreatinineRecords;
   @observable concentrationRecords;
   @observable dosingRecords;
   @observable dosingRecomendations;
-  constructor(name, timeOfBirth, weight, serumCreatinine) {
+  @observable attendingDoctor;
+  constructor(name, timeOfBirth, weight, serumCreatinine, attendingDoctor) {
     this.name = name;
     this.timeOfBirth = timeOfBirth;
     this.weightRecords = [];
@@ -16,7 +16,8 @@ export class Baby {
     this.dosingRecords = [];
     this.dosingRecommendations = [];
     this.addWeight(timeOfBirth, weight);
-    this.addSerumCreatinine( timeOfBirth, serumCreatinine);
+    this.addSerumCreatinine(timeOfBirth, serumCreatinine);
+    this.attendingDoctor = attendingDoctor;
   }
   addWeight(time, weight){
     this.weightRecords.push(new WeightRecord(time, weight))
@@ -65,5 +66,13 @@ export class DosingRecommendation {
   constructor(time, dosing) {
     this.time = time;
     this.dosing = dosing;
+  }
+}
+
+
+export class BabyCollection {
+  @observable babies;
+  constructor() {
+    this.babies = [];
   }
 }
