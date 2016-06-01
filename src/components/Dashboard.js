@@ -3,20 +3,16 @@
  * Created by devin on 2/27/16.
  */
 import React from 'react';
-import InputData from './input-data-form';
-import { Paper } from 'material-ui';
-import SimResults from './sim-results';
-import mobx, {observable, autorun} from 'mobx';
-import {observer} from 'mobx-react';
+import mobx, {observable} from 'mobx';
+import {observer} from 'mobx-react'
 import {RaisedButton} from 'material-ui';
-import Plotly from 'react-plotlyjs';
+import {Baby} from '../stores/baby.js'
 
+const baby = new Baby("Dan", Date.UTC(2016, 1, 28, 10, 16), 2.5, 0.9, "Michel");
 @observer
 class Dashboard extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
+    console.log("rerendering!!")
     return (
       <div
         style={{
@@ -37,21 +33,24 @@ class Dashboard extends React.Component {
         }}>
 
           <div>
-            <Paper
+            <div
               style={{
         padding: 20
         }}
-              zDepth={5}
             >
-              hello
-            </Paper>
+              {JSON.stringify(baby)}
+            </div>
+            <button
+              onClick={() => {
+              console.log("adding concentration record")
+              baby.addConcentrationRecord(Date.now(), 11.0)
+          }}
+            ></button>
           </div>
         </div>
       </div>
     )
   }
 }
-
-
 
 export default Dashboard
