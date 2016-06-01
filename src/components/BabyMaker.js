@@ -5,9 +5,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import {FormsyDate, FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+import {observer} from 'mobx-react'
+import {Baby} from '../stores/baby'
 
-
-
+@observer
 export default class BabyMaker extends React.Component {
 
   /**
@@ -49,6 +50,7 @@ constructor(props) {
     }
     this.enableButton = this.enableButton.bind(this)
     this.disableButton = this.disableButton.bind(this)
+    this.submitForm = this.submitForm.bind(this)
   }
 
 
@@ -67,6 +69,7 @@ constructor(props) {
 
   submitForm(data) {
     alert(JSON.stringify(data, null, 4));
+    this.props.babyCollection.add(new Baby(data.name, data.birthTime, data.weight, data.serumCreatinine, data.attendingDoctor))
 
   }
 
@@ -77,7 +80,7 @@ constructor(props) {
   render() {
     let {paperStyle, switchStyle, submitStyle } = this.styles;
     let { wordsError, numericError, urlError } = this.errorMessages;
-
+  console.log(this.props.babyCollection)
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Paper style={paperStyle}>
@@ -104,18 +107,26 @@ constructor(props) {
               hintText="Birth Time"
             />
             <FormsyText
-              name="Weight"
+              name="weight"
               validations="isNumeric"
               validationError={numericError}
               hintText="Weight"
               floatingLabelText="Weight"
             />
             <FormsyText
-              name="Serum Creatinine"
+              name="serumCreatinine"
               validations="isNumeric"
               validationError={numericError}
               hintText="Serum Creatinine"
               floatingLabelText="Serum Creatinine"
+            />
+            <FormsyText
+              name="attendingDoctor"
+              validations="isWords"
+              validationError={wordsError}
+              required
+              hintText="Who is the attending Doctor?"
+              floatingLabelText="attending doctor"
             />
             <FormsyToggle
               name="Premature"

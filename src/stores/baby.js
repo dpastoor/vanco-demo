@@ -75,4 +75,7 @@ export class BabyCollection {
   constructor() {
     this.babies = [];
   }
+  add(baby) {
+    this.babies.push(baby)
+  }
 }
