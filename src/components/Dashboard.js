@@ -38,7 +38,7 @@ class Dashboard extends React.Component {
         padding: 20
         }}
             >
-              {JSON.stringify(baby)}
+              {JSON.stringify(baby.attendingDoctor)}
             </div>
             <button
               onClick={() => {
