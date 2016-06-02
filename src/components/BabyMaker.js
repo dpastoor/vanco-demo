@@ -70,6 +70,7 @@ constructor(props) {
   submitForm(data) {
     this.props.babyCollection.add(new Baby(
       data.name,
+      // parse to a unix timestamp representing UTC time in milliseconds since 1970-01-01
       parseInt(format(`${format(data.birthDate, "YYYY-MM-DD")}T${format(data.birthTime, "HH:mm")}`, "x")),
       data.weight,
       data.serumCreatinine,
@@ -116,7 +117,8 @@ constructor(props) {
               hintText="Birth Time"
               format='24hr'
               formatTime={(time) => {
-                console.log(time)
+                //TODO: noticed from console.log here that this formatTime is being
+                // called any time a formsy form element is entered/exited
                 return format(time, "HH:mm:ss");
               }}
             />
