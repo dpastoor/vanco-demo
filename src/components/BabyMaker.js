@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {FormsyDate, FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
 import {observer} from 'mobx-react'
 import {Baby} from '../stores/baby'
-
+import {format, addMinutes} from 'date-fns'
 @observer
 export default class BabyMaker extends React.Component {
 
@@ -68,8 +68,14 @@ constructor(props) {
   }
 
   submitForm(data) {
-    alert(JSON.stringify(data, null, 4));
-    this.props.babyCollection.add(new Baby(data.name, data.birthTime, data.weight, data.serumCreatinine, data.attendingDoctor))
+    this.props.babyCollection.add(new Baby(
+      data.name,
+      parseInt(format(`${format(data.birthDate, "YYYY-MM-DD")}T${format(data.birthTime, "HH:mm")}`, "x")),
+      data.weight,
+      data.serumCreatinine,
+      data.attendingDoctor
+      )
+    )
 
   }
 
@@ -80,7 +86,6 @@ constructor(props) {
   render() {
     let {paperStyle, switchStyle, submitStyle } = this.styles;
     let { wordsError, numericError, urlError } = this.errorMessages;
-  console.log(this.props.babyCollection)
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Paper style={paperStyle}>
@@ -101,10 +106,19 @@ constructor(props) {
             <FormsyDate
               name="birthDate"
               hintText="Birth Date"
+              formatDate={(date) => {
+                console.log(format(new Date(), "ZZ"))
+                return format(date, "YYYY-MM-DD");
+              }}
             />
             <FormsyTime
               name="birthTime"
               hintText="Birth Time"
+              format='24hr'
+              formatTime={(time) => {
+                console.log(time)
+                return format(time, "HH:mm:ss");
+              }}
             />
             <FormsyText
               name="weight"
@@ -145,4 +159,3 @@ constructor(props) {
     );
   };
 };
-
