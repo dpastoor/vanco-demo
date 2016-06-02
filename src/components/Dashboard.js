@@ -8,11 +8,33 @@ import {observer} from 'mobx-react'
 import {RaisedButton} from 'material-ui';
 import {Baby, BabyCollection} from '../stores/baby.js'
 import BabyMaker from './BabyMaker'
-const baby = new Baby("Dan", Date.UTC(2016, 1, 28, 10, 16), 2.5, 0.9, "Michel");
 const babycollection = new BabyCollection();
 @observer
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedBabyUUID: null
+    }
+    this._handleBabySelect = this._handleBabySelect.bind(this)
+  }
+
+  _handleBabySelect(baby) {
+    this.setState({
+      selectedBabyUUID: baby.uuid
+    })
+  }
   render() {
+
+    let Babies = <div> No Babies</div>
+
+    if (babycollection.babies.length > 0) {
+      Babies = babycollection.babies.map((baby) => (
+        <div
+          key = {baby.uuid}
+          onClick={() => this._handleBabySelect(baby)}
+      > {`${baby.name} - ${baby.uuid}`} </div>)
+    )}
     console.log("rerendering!!")
     return (
       <div
@@ -39,13 +61,15 @@ class Dashboard extends React.Component {
         padding: 20
         }}
             >
-              {JSON.stringify(babycollection)}
+            Selected Baby UUID: {this.state.selectedBabyUUID}
+               {/**JSON.stringify(babycollection, null, 4)**/}
+              {Babies}
             </div>
             <BabyMaker babyCollection={babycollection}></BabyMaker>
             <button
               onClick={() => {
               console.log("adding concentration record")
-              baby.addConcentrationRecord(Date.now(), 11.0)
+              babycollection.babies[0].addConcentrationRecord(Date.now(), 11.0)
           }}
             ></button>
           </div>

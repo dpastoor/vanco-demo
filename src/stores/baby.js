@@ -1,5 +1,5 @@
 import { observable, computed, transaction } from 'mobx'
-
+import uuid from 'uuid'
 export class Baby {
   @observable weightRecords;
   @observable serumCreatinineRecords;
@@ -18,6 +18,7 @@ export class Baby {
     this.addWeight(timeOfBirth, weight);
     this.addSerumCreatinine(timeOfBirth, serumCreatinine);
     this.attendingDoctor = attendingDoctor;
+    this.uuid = uuid.v4()
   }
   addWeight(time, weight){
     this.weightRecords.push(new WeightRecord(time, weight))

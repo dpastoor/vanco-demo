@@ -58,7 +58,8 @@
     "react-select": "^1.0.0-beta13",
     "react-swal": "^1.0.0",
     "react-tap-event-plugin": "^1.0.0",
-    "sweetalert": "^1.1.3"
+    "sweetalert": "^1.1.3",
+    "uuid": "^2.0.2"
   },
   "ava": {
     "files": [
