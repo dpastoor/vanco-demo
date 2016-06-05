@@ -86,4 +86,7 @@ export class BabyCollection {
   add(baby) {
     this.babies.push(baby)
   }
+  findBabyByUUID(uuid) {
+    return this.babies.find(baby => baby.uuid === uuid)
+  }
 }

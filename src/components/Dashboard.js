@@ -6,8 +6,9 @@ import React from 'react';
 import mobx, {observable} from 'mobx';
 import {observer} from 'mobx-react'
 import {RaisedButton} from 'material-ui';
-import {Baby, BabyCollection} from '../stores/baby.js'
-import BabyMaker from './BabyMaker'
+import {Baby, BabyCollection} from '../stores/baby.js';
+import BabyMaker from './BabyMaker';
+import PrognosticFactorForm from './PrognosticFactorForm';
 const babycollection = new BabyCollection();
 @observer
 class Dashboard extends React.Component {
@@ -20,6 +21,7 @@ class Dashboard extends React.Component {
   }
 
   _handleBabySelect(baby) {
+    babycollection.selectedBaby = baby.uuid
     this.setState({
       selectedBabyUUID: baby.uuid
     })
@@ -33,7 +35,7 @@ class Dashboard extends React.Component {
         <div
           key = {baby.uuid}
           onClick={() => this._handleBabySelect(baby)}
-      > {`${baby.name} - ${baby.uuid}`} </div>)
+      > {`${baby.name} - num wt records: ${baby.weightRecords.length}`} </div>)
     )}
     console.log("rerendering!!")
     return (
@@ -66,12 +68,12 @@ class Dashboard extends React.Component {
               {Babies}
             </div>
             <BabyMaker babyCollection={babycollection}></BabyMaker>
-            <button
-              onClick={() => {
-              console.log("adding concentration record")
-              babycollection.babies[0].addConcentrationRecord(Date.now(), 11.0)
-          }}
-            ></button>
+            {this.state.selectedBabyUUID
+              ? <PrognosticFactorForm
+              baby={babycollection.findBabyByUUID(this.state.selectedBabyUUID)}
+              />
+               : null
+            }
           </div>
         </div>
       </div>
