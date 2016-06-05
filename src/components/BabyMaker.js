@@ -74,7 +74,8 @@ constructor(props) {
       parseInt(format(`${format(data.birthDate, "YYYY-MM-DD")}T${format(data.birthTime, "HH:mm")}`, "x")),
       data.weight,
       data.serumCreatinine,
-      data.attendingDoctor
+      data.attendingDoctor,
+      data.treatmentInProgress
       )
     )
 
@@ -143,6 +144,11 @@ constructor(props) {
               required
               hintText="Who is the attending Doctor?"
               floatingLabelText="attending doctor"
+            />
+            <FormsyToggle
+              name="treatmentInProgress"
+              label="treatment in progress"
+              style={switchStyle}
             />
             <FormsyToggle
               name="Premature"

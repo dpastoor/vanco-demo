@@ -7,7 +7,8 @@ export class Baby {
   @observable dosingRecords;
   @observable dosingRecomendations;
   @observable attendingDoctor;
-  constructor(name, timeOfBirth, weight, serumCreatinine, attendingDoctor) {
+  @observable treatmentInProgress;
+  constructor(name, timeOfBirth, weight, serumCreatinine, attendingDoctor, treatmentInProgress) {
     this.name = name;
     this.timeOfBirth = timeOfBirth;
     this.weightRecords = [];
@@ -18,7 +19,8 @@ export class Baby {
     this.addWeight(timeOfBirth, weight);
     this.addSerumCreatinine(timeOfBirth, serumCreatinine);
     this.attendingDoctor = attendingDoctor;
-    this.uuid = uuid.v4()
+    this.uuid = uuid.v4();
+    this.treatmentInProgress = treatmentInProgress;
   }
   addWeight(time, weight){
     this.weightRecords.push(new WeightRecord(time, weight))
@@ -34,6 +36,9 @@ export class Baby {
   }
   addDosingRecommendation(time, dose) {
     this.dosingRecommendations.push(new DosingRecommendation(time, dose))
+  }
+  onTreatment(inProgress) {
+    this.treatmentInProgress = inProgress;
   }
 }
 
@@ -56,17 +61,19 @@ export class ConcentrationRecord {
     this.concentration = concentration;
   }
 }
+
 export class DosingRecord {
-  constructor(time, dosing) {
+  constructor(time, amt) {
     this.time = time;
-    this.dosing = dosing;
+    this.amt = amt;
   }
 }
 
 export class DosingRecommendation {
-  constructor(time, dosing) {
+  constructor(time, amt, ii) {
     this.time = time;
-    this.dosing = dosing;
+    this.amt = amt;
+    this.ii = ii;
   }
 }
 
