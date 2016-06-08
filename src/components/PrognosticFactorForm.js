@@ -5,8 +5,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import {FormsyDate, FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+import {toJS} from 'mobx';
 import {observer} from 'mobx-react'
-import {Baby, WeightRecord} from '../stores/baby'
+import {Baby, WeightRecord, SerumCreatinineRecord} from '../stores/baby'
 import {format, addMinutes} from 'date-fns'
 @observer
 export default class PrognosticFactorForm extends React.Component {
@@ -68,7 +69,7 @@ constructor(props) {
   }
 
   submitForm(data) {
-    console.log(this.props.baby)
+    console.log(JSON.stringify(toJS(this.props.baby)))
     if (data.weight !== "") {
       this.props.baby.addWeight(new WeightRecord(
         // parse to a unix timestamp representing UTC time in milliseconds since 1970-01-01
@@ -76,6 +77,14 @@ constructor(props) {
         parseFloat(data.weight)
         )
       )
+    }
+      if (data.serumCreatinine !== "") {
+        this.props.baby.addSerumCreatinine(new SerumCreatinineRecord(
+          // parse to a unix timestamp representing UTC time in milliseconds since 1970-01-01
+          parseInt(format(`${format(data.obsDate, "YYYY-MM-DD")}T${format(data.obsTime, "HH:mm")}`, "x")),
+          parseFloat(data.weight)
+          )
+        )
     }
   console.log(data)
   }
