@@ -9,7 +9,9 @@ import {RaisedButton} from 'material-ui';
 import {Baby, BabyCollection} from '../stores/baby.js';
 import BabyMaker from './BabyMaker';
 import PrognosticFactorForm from './PrognosticFactorForm';
+import babyFixture from '../fixtures/babyStats'
 const babycollection = new BabyCollection();
+babycollection.add(babyFixture.babyOneWt)
 @observer
 class Dashboard extends React.Component {
   constructor(props) {
@@ -31,12 +33,15 @@ class Dashboard extends React.Component {
     let Babies = <div> No Babies</div>
 
     if (babycollection.babies.length > 0) {
-      Babies = babycollection.babies.map((baby) => (
+      Babies = babycollection.babies.map((baby) => {
+        return (
         <div
           key = {baby.uuid}
           onClick={() => this._handleBabySelect(baby)}
-      > {`${baby.name} - num wt records: ${baby.weightRecords.length}`} </div>)
-    )}
+      > {`${baby.name} - num wt records: ${baby.weightRecords.length}`}
+        </div>)
+    })
+  }
     console.log("rerendering!!")
     return (
       <div
@@ -67,12 +72,12 @@ class Dashboard extends React.Component {
                {/**JSON.stringify(babycollection, null, 4)**/}
               {Babies}
             </div>
-            <BabyMaker babyCollection={babycollection}></BabyMaker>
+
             {this.state.selectedBabyUUID
               ? <PrognosticFactorForm
               baby={babycollection.findBabyByUUID(this.state.selectedBabyUUID)}
               />
-               : null
+               :    <BabyMaker babyCollection={babycollection}></BabyMaker>
             }
           </div>
         </div>
