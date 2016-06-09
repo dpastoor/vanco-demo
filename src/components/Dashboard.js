@@ -10,26 +10,26 @@ import {Baby, BabyCollection} from '../stores/baby.js';
 import BabyMaker from './BabyMaker';
 import PrognosticFactorForm from './PrognosticFactorForm';
 import babyFixture from '../fixtures/babyStats'
-const babycollection = new BabyCollection();
-babycollection.add(babyFixture.babyOneWt)
+// baby={babycollection.findBabyByUUID(this.state.selectedBabyUUID)}
 @observer
 class Dashboard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      selectedBabyUUID: null
-    }
     this._handleBabySelect = this._handleBabySelect.bind(this)
   }
 
   _handleBabySelect(baby) {
-    babycollection.selectedBaby = baby.uuid
-    this.setState({
-      selectedBabyUUID: baby.uuid
-    })
+    console.log('handling baby selection');
+    console.log(baby);
+    const path = `/babies/${baby.uuid}`;
+    console.log(this.context)
+    this.context.router.push(path)
+
   }
   render() {
 
+    console.log(this.props.route)
+    let babycollection = this.props.route.babycollection;
     let Babies = <div> No Babies</div>
 
     if (babycollection.babies.length > 0) {
@@ -42,7 +42,7 @@ class Dashboard extends React.Component {
         </div>)
     })
   }
-    console.log("rerendering!!")
+    console.log("dashboard!!")
     return (
       <div
         style={{
@@ -68,17 +68,11 @@ class Dashboard extends React.Component {
         padding: 20
         }}
             >
-            Selected Baby UUID: {this.state.selectedBabyUUID}
                {/**JSON.stringify(babycollection, null, 4)**/}
               {Babies}
             </div>
 
-            {this.state.selectedBabyUUID
-              ? <PrognosticFactorForm
-              baby={babycollection.findBabyByUUID(this.state.selectedBabyUUID)}
-              />
-               :    <BabyMaker babyCollection={babycollection}></BabyMaker>
-            }
+             <BabyMaker babyCollection={babycollection}></BabyMaker>
           </div>
         </div>
       </div>
@@ -86,4 +80,9 @@ class Dashboard extends React.Component {
   }
 }
 
+Dashboard.contextTypes = {
+  router: function () {
+    return React.PropTypes.func.isRequired;
+  }
+};
 export default Dashboard
